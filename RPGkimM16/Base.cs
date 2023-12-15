@@ -8,13 +8,13 @@ namespace RPGkimM16
 {
     public abstract class Base
     {
-        public string name;
-        public int hP;
-        public int xP;
+        //public string name;
+        //public int hP;
+        //public int xP;
 
-        public string Name { get => name; set => name = value; }
-        public int HP { get => hP; set => hP = value; }
-        public int XP { get => xP; set => xP = value; }
+        public string Name { get; set; }
+        public int HP { get; set; }
+        public int XP { get; set; }
 
         public abstract void Attack();
 

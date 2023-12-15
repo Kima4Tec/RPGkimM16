@@ -1,4 +1,7 @@
-﻿using System.Threading;
+﻿using System.Numerics;
+using System.Reflection;
+using System.Threading;
+using System.Xml.Linq;
 
 namespace RPGkimM16
 {
@@ -6,53 +9,101 @@ namespace RPGkimM16
     {
         static void Main(string[] args)
         {
+            int weaponChoice = 0;
+            int charChoice = 0;
             {
                 //creating list of players
-                Player player = new Player() { Name = "Kim", HP = 100, XP = 0, PlayerType = PlayerType.HUMAN };
-                //creating list of equipment
-                Equipment sword = new Equipment() { Name = "Excalibur", Weight = 2.5, AttackBonus = 10 };
-                Equipment axe = new Equipment() { Name = "Mountain Axe", Weight = 20.5, AttackBonus = 20 };
+                List<Player> playerList = new List<Player>();
+                playerList.Add(new Player("Kim", 100, 0, PlayerType.HUMAN));
+                playerList.Add(new Player("Ophelia", 200, 0, PlayerType.ELVER));
+
+
+
+
                 //Creating monster list
-                NPC monster = new NPC() { Name = "Goblin", HP = 50, XP = 10, MonsterType = MonsterType.ORC };
-
-                //adding weapons to the player
-                player.AddWeapon(sword);
-                player.AddWeapon(axe);
-                //show weapon
-                Console.WriteLine($"You are equiped with a sword.");
+                List<NPC> nPCList = new List<NPC>();
+                NPC monster = new NPC("Ochphred", 50, 10, MonsterType.ORC);
+                NPC monster1 = new NPC("Flytobus", 75, 20, MonsterType.DRAGON);
+                nPCList.Add(monster);
+                nPCList.Add(monster1);
 
 
-                while (!(player.IsDead() || monster.IsDead()))
+                Console.WriteLine("Which character do you want to be? Press a number:");
+                int j = 0;
+                foreach (var item in playerList)
+                {
+                    Console.WriteLine("[" + j + "]" + " " + item.GetPlayerInfo());
+                    j++;
+                }
+
+
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                char key1 = keyInfo.KeyChar;
+                if (int.TryParse(key1.ToString(), out charChoice) && charChoice >= 0 && charChoice < playerList.Count)
+                {
+                    Console.WriteLine($"You are {playerList[charChoice].Name}");
+                }
+                else
+                {
+                    charChoice = 0;
+                    Console.WriteLine($"Invalid choice. You are by default {playerList[charChoice].Name}");
+                }
+
+                playerList[charChoice]._equipment.Add(new Equipment("knuckles", 1.25, 5));
+                playerList[charChoice]._equipment.Add(new Equipment("Excalibur", 10, 10));
+                playerList[charChoice]._equipment.Add(new Equipment("Mountain Axe", 20.5, 20));
+
+                Console.WriteLine();
+                Console.WriteLine("These are your weapons. Which one do you want to use?");
+                Console.WriteLine(playerList[charChoice].ToString());
+ 
+                ConsoleKeyInfo keyInf = Console.ReadKey(true);
+                char key2 = keyInf.KeyChar;
+                if (int.TryParse(key2.ToString(), out weaponChoice) && weaponChoice >= 0 && weaponChoice < playerList[charChoice]._equipment.Count)
+                {
+                    Console.WriteLine($"You are equipped with {playerList[charChoice]._equipment[weaponChoice].Name}");
+                }
+                else
+                {
+                    weaponChoice = 0;
+                    Console.WriteLine("Invalid weapon choice. You are using your knuckles.");
+                }
+
+                Console.WriteLine("The fight can begin.");
+                Console.WriteLine($"Player HP: {playerList[charChoice].HP}, Monster HP: {monster.HP}");
+
+
+                while (!(playerList[charChoice].IsDead() || monster.IsDead()))
                 {
 
                     //Question to user
                     Console.WriteLine("Are you ready?: (Y/N)");
-                    ConsoleKeyInfo keyInfo = Console.ReadKey();
-                    char keyPressed = keyInfo.KeyChar;
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    char keyPress = key.KeyChar;
                     Console.WriteLine();
-                    if (keyPressed == 'y' || keyPressed == 'Y')
+                    if (keyPress == 'y' || keyPress == 'Y')
                     {
                         // Getting  hitpoints for the player and monster
-                        Console.WriteLine($"Player HP: {player.HP}, Monster HP: {monster.HP}");
+                        Console.WriteLine($"Player HP: {playerList[charChoice].HP}, Monster HP: {monster.HP}");
 
                         //output to user
-                        Console.WriteLine($"Player: {player.Name} swings at the {monster.name} right in front of him");
+                        Console.WriteLine($"Player: {playerList[charChoice].Name} swings at the {monster.Name} right in front of him");
 
                         //check whether monster is still alive
-                        if (monster.HP >0)
+                        if (monster.HP > 0)
                         {
-                            monster.HP -= monster.Damage(sword.AttackBonus);
+                            monster.HP -= playerList[charChoice]._equipment[weaponChoice].AttackBonus;
                         }
 
                         //check whether player is still alive
-                        if (player.HP > 0)
+                        if (playerList[charChoice].HP > 0)
                         {
-                            player.HP -= player.Damage(0);
+                            playerList[charChoice].HP -= playerList[charChoice].Damage(0);
                         }
                     }
                 }
                 //when dead write a text
-                if (player.IsDead()) { Console.WriteLine($"{player.Name} died"); }
+                if (playerList[charChoice].IsDead()) { Console.WriteLine($"{playerList[charChoice].Name} died"); }
                 if (monster.IsDead()) { Console.WriteLine($"{monster.Name} died"); }
             }
         }

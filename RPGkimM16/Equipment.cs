@@ -27,11 +27,10 @@ namespace RPGkimM16
             AttackBonus = attackBonus;
 
         }
-
-        public Equipment()
+        public override string ToString()
         {
+            return $"Name: {Name}, Weight: {Weight}, Attack Bonus: {AttackBonus}";
         }
-
 
     }
 }

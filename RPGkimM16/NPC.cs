@@ -20,12 +20,12 @@ namespace RPGkimM16
         public NPC(string name, int hp, int xp, MonsterType type)
         {
             Name = name;
-            HP = hP;
-            XP = xP;
-            MonsterType = monsterType;
+            HP = hp;
+            XP = xp;
+            MonsterType = type;
         }
 
-//
+//showing text
         public override void Attack()
         {
             Console.WriteLine($"{Name} is attacking!");
