@@ -29,7 +29,7 @@ namespace RPGkimM16
         }
         public override string ToString()
         {
-            return $"Name: {Name}, Weight: {Weight}, Attack Bonus: {AttackBonus}";
+            return $"Navn: {Name}, Vægt: {Weight}, Angrebsbonus: {AttackBonus}";
         }
 
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RPGkimM16
 {
     //different monster types
-    enum MonsterType { DRAGON, ORC }
+    enum MonsterType { DRAGE, ORK }
     internal class NPC : Base
     {
         MonsterType monsterType;
@@ -28,7 +28,7 @@ namespace RPGkimM16
 //showing text
         public override void Attack()
         {
-            Console.WriteLine($"{Name} is attacking!");
+            Console.WriteLine($"{Name} angriber!");
         }
 
 

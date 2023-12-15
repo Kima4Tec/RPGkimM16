@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace RPGkimM16
 {
-    enum PlayerType { ELVER, HUMAN }
+    enum PlayerType { ELVER, MENNESKE }
 
     internal class Player : Base
     {
@@ -53,7 +53,7 @@ namespace RPGkimM16
         }
         public string GetPlayerInfo()
         {
-            return $"Name: {Name}, HP: {HP}, XP: {XP}, Type: {PlayerType}";
+            return $"Navn: {Name}, HP: {HP}, XP: {XP}, Type: {PlayerType}";
         }
 
 

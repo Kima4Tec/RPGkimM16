@@ -22,7 +22,7 @@ namespace RPGkimM16
         public int Damage(int bonus) 
         {
             Random takeHit = new Random();
-            int Hit = takeHit.Next(0, 10);
+            int Hit = takeHit.Next(0, 30);
             return Hit + bonus;
         }
 
