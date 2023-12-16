@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace RPGkimM16
 {
-    //different monster types
-    enum MonsterType { DRAGE, ORK }
+    enum MonsterType { ORC, DRAGON, BEAST, UNDEAD }
     internal class NPC : Base
     {
         MonsterType monsterType;
         internal MonsterType MonsterType { get => monsterType; set => monsterType = value; }
-        //constructor
+
         public NPC()
         {
         }
-        //constructor with parameters
+
         public NPC(string name, int hp, int xp, MonsterType type)
         {
             Name = name;
@@ -25,12 +24,11 @@ namespace RPGkimM16
             MonsterType = type;
         }
 
-//showing text
-        public override void Attack()
+        public override int Attack(int attackBonus)
         {
-            Console.WriteLine($"{Name} angriber!");
+
+            return base.Attack(attackBonus);
+
         }
-
-
     }
 }

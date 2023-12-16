@@ -6,34 +6,51 @@ using System.Threading.Tasks;
 
 namespace RPGkimM16
 {
-    public abstract class Base
+    internal abstract class Base
     {
-        //public string name;
-        //public int hP;
-        //public int xP;
 
-        public string Name { get; set; }
-        public int HP { get; set; }
-        public int XP { get; set; }
+        string name;
+        int hP;
+        int xP;
 
-        public abstract void Attack();
+        public string Name { get { return name; } set { name = value; } }
+        public int HP { get => hP; set => hP = value; }
+        public int XP { get => xP; set => xP = value; }
 
-        //Damage is calculated randomly
-        public int Damage(int bonus) 
+        public bool IsDead()
         {
-            Random takeHit = new Random();
-            int Hit = takeHit.Next(0, 15);
-            return Hit + bonus;
+            if (HP > 0)
+            {
+                return false;
+            }
+            else { return true; }
         }
 
-        //bool to check if dead
-        public bool IsDead() 
+        public void DoDamage(int damage)
         {
-            if (HP > 0) return false;
-            else 
-                return true;
+            //influence HP and maybe XP - weapon bonus is called by a argument HP = a random number + a bonus
+            this.HP = this.HP - (damage);
         }
 
-
+        //Made abstract and to be used in player and NPC
+        public virtual int Attack(int attackBonus)
+        {
+            //Getting a random number
+            Random num = new Random();
+            int checkHit = num.Next(0, 6);
+            if (checkHit > 2)
+            {
+                int rndNr = num.Next(0, 15);
+                //Calling DoDamage with a random number and a bonus - text output can be avoided in a real game
+                Console.WriteLine($"{this.Name} hits and causes {rndNr + attackBonus} damage to the opponent.");
+                int damage = rndNr + attackBonus;
+                return damage;
+            }
+            else
+            {
+                Console.WriteLine($"{this.Name} does not hit.");
+                return 0;
+            }
+        }
     }
 }

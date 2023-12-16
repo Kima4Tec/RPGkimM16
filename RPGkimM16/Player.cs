@@ -7,19 +7,19 @@ using System.Xml.Linq;
 
 namespace RPGkimM16
 {
-    enum PlayerType { ELVER, MENNESKE }
-
+    enum PlayerType { HUMAN, ELVER }
     internal class Player : Base
     {
-
-        public List<Equipment> _equipment = new List<Equipment>();
+        //field for enums
         PlayerType playerType;
 
-        internal PlayerType PlayerType { get => playerType; set => playerType = value; }
+        //property to get the enums
+        public PlayerType PlayerType { get => playerType; set => playerType = value; }
 
-        public Player() { }
+        public Player()
+        {
+        }
 
-        //Constructor with parameters
         public Player(string name, int hp, int xp, PlayerType type)
         {
             Name = name;
@@ -27,35 +27,10 @@ namespace RPGkimM16
             XP = xp;
             PlayerType = type;
         }
-        //Adding equipments method with parameter
-        public void AddWeapon(Equipment equipment)
+
+        public override int Attack(int attackBonus)
         {
-            _equipment.Add(equipment);
+            return base.Attack(attackBonus);
         }
-
-        public override void Attack()
-        {
-            Console.WriteLine($"{Name} is attacking!");
-        }
-
-        public override string ToString()
-        {
-            string playerWeapons = "\n";
-            int i = 0;  
-            foreach (var weapon in _equipment)
-            {
-                playerWeapons += "[" + i + "]" + " " + weapon.ToString() + "\n";
-                i++;
-
-            }
-
-            return playerWeapons;
-        }
-        public string GetPlayerInfo()
-        {
-            return $"Navn: {Name}, HP: {HP}, XP: {XP}, Type: {PlayerType}";
-        }
-
-
     }
 }

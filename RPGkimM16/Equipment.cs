@@ -12,25 +12,15 @@ namespace RPGkimM16
         double weight;
         int attackBonus;
 
-
-
-        public string Name { get => name; set => name = value; }
-        public double Weight { get => weight; set => weight = value; }
-        public int AttackBonus { get => attackBonus; set => attackBonus = value; }
-
-
-
         public Equipment(string name, double weight, int attackBonus)
         {
             Name = name;
             Weight = weight;
             AttackBonus = attackBonus;
-
-        }
-        public override string ToString()
-        {
-            return $"Navn: {Name}, Vægt: {Weight}, Angrebsbonus: {AttackBonus}";
         }
 
+        public string Name { get { return name; } set { name = value; } }
+        public double Weight { get => weight; set => weight = value; }
+        public int AttackBonus { get => attackBonus; set => attackBonus = value; }
     }
 }
