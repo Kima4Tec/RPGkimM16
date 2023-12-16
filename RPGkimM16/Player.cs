@@ -17,7 +17,7 @@ namespace RPGkimM16
 
         internal PlayerType PlayerType { get => playerType; set => playerType = value; }
 
-
+        public Player() { }
 
         //Constructor with parameters
         public Player(string name, int hp, int xp, PlayerType type)
